@@ -5,7 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Date;
 
-@Table(name = "gate_reg")
+@Table(name = "gatereg")
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
