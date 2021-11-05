@@ -1,4 +1,4 @@
-package com.kodluyoruz.flightticket.model;
+package com.kodluyoruz.flightticket.models.entity;
 
 import lombok.*;
 
@@ -26,7 +26,11 @@ public class Seat extends BaseEntity{
     @JoinColumn(name = "flight_id",nullable = false,insertable = false,updatable = false)
     private Flight flight;
 
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL,orphanRemoval = true,mappedBy = "seat")
+    @Column(name = "ticket_id")
+    private Integer ticketId;
+
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name = "ticket_id",nullable = false,insertable = false,updatable = false)
     private Ticket ticket;
 
 

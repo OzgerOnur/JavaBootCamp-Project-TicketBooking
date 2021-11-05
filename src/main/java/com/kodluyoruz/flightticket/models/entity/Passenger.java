@@ -1,4 +1,4 @@
-package com.kodluyoruz.flightticket.model;
+package com.kodluyoruz.flightticket.models.entity;
 
 import lombok.*;
 

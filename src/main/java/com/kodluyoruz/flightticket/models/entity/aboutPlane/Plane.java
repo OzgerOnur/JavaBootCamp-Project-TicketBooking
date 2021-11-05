@@ -1,6 +1,8 @@
-package com.kodluyoruz.flightticket.models;
+package com.kodluyoruz.flightticket.models.entity.aboutPlane;
 
 
+import com.kodluyoruz.flightticket.models.entity.BaseEntity;
+import com.kodluyoruz.flightticket.models.entity.Flight;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,12 +15,12 @@ import java.util.List;
 @Builder
 @Getter
 @Setter
-public class Plane extends BaseEntity{
+public class Plane extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Integer id;
 
-    private String planeName;
+    private String name;
 
     private Integer serialNumber;
 

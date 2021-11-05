@@ -1,4 +1,4 @@
-package com.kodluyoruz.flightticket.models;
+package com.kodluyoruz.flightticket.models.entity;
 
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
