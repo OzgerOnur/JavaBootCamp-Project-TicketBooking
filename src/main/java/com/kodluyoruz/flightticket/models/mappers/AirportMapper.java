@@ -17,7 +17,7 @@ public interface AirportMapper {
     AirportDto airportToAirportDto(Airport createdAirport);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE )
-    void updateAirport(Airport airport, AirportRequest airportRequest);
+    void updateAirport(@MappingTarget Airport airport, AirportRequest airportRequest);
 
     List<AirportDto> airportsToAirportDtos(List<Airport> airports);
 }

@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class AirportDto {
-     private Integer id;
+    private Integer id;
     private String name;
     private Integer gateCapacity;
     private List<GateDto> gates;

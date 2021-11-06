@@ -1,5 +1,6 @@
 package com.kodluyoruz.flightticket.services;
 
+import com.kodluyoruz.flightticket.exceptions.exceptionsType.NotFoundEntityException;
 import com.kodluyoruz.flightticket.models.dto.PlaneDto;
 import com.kodluyoruz.flightticket.models.entity.aboutPlane.Plane;
 import com.kodluyoruz.flightticket.repositorys.PlaneRepository;
@@ -38,7 +39,10 @@ public class PlaneService {
     }
 
     public void deletePlane(Integer id) {
-        //todo delete muhabbeti
+       planeRepository.deleteById(id);
+    }
 
+    public void isPlaneExist(Integer planeId) {
+        planeRepository.findById(planeId).orElseThrow(() -> new NotFoundEntityException("Plane Not Found") );
     }
 }

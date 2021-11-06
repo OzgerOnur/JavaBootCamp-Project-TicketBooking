@@ -1,5 +1,6 @@
 package com.kodluyoruz.flightticket.services;
 
+import com.kodluyoruz.flightticket.exceptions.exceptionsType.NotFoundEntityException;
 import com.kodluyoruz.flightticket.models.dto.AirportDto;
 import com.kodluyoruz.flightticket.models.entity.aboutAirport.Airport;
 import com.kodluyoruz.flightticket.models.requests.AirportRequest;
@@ -43,5 +44,15 @@ public class AirportService {
     public List<AirportDto> getAirports() {
         List<Airport> airports = airportRepository.findAll();
         return MAPPER_AIRPORT.airportsToAirportDtos(airports);
+    }
+
+
+    public void deleteAirport(Integer id) {
+        airportRepository.deleteById(id);
+    }
+
+    public void isAirportExist(Integer toAirportId) {
+        airportRepository.findById(toAirportId).orElseThrow(
+                () -> new NotFoundEntityException( toAirportId + "Airport Not Found"));
     }
 }
