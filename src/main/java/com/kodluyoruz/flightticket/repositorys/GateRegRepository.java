@@ -1,16 +1,14 @@
 package com.kodluyoruz.flightticket.repositorys;
 
 import com.kodluyoruz.flightticket.models.entity.GateReg;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
-import java.util.Optional;
 
 @Repository
 public interface GateRegRepository extends JpaRepository<GateReg,Integer> {
-    Boolean existsGateRegByGateIdEqualsAndStartingDateIsBetween(Integer gateId, Date dateStart, Date dateEnd);
-    Optional<Boolean> existsGateRegByGateIdEqualsAndStartingDateIsBetweenOrEndDateIsBetween
-            (Integer gateId, Date dateStart, Date dateEnd);
-
+    Boolean existsGateRegByGateIdEqualsAndStartingDateIsBetweenOrEndDateIsBetween
+            (Integer gateId, Date dateStart1, Date dateEnd1,Date dateStart2, Date dateEnd2);
 }

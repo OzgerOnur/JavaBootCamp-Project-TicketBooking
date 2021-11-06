@@ -18,17 +18,17 @@ public class GateService {
 
 
     public void isGateValidAndAvailable(Integer fromAirportId, GateReg gateReg) {
-        // gateid ile airport eşleşiyor mu
-        Gate gate = gateRepository.findByIdAndAirportIdEquals(gateReg.getGateId(), fromAirportId).orElseThrow(
+
+        Gate gate = gateRepository.findByIdAndAirportId(gateReg.getGateId(), fromAirportId).orElseThrow(
                 () -> new NotFoundEntityException(fromAirportId + " And "+ gateReg.getGateId() + "arent matched")
         );
-       //todo  // bu gate idye sahip Gate'de Gatereg durumu ne denemesini yap
-        gateRegRepository.existsGateRegByGateIdEqualsAndStartingDateIsBetweenOrEndDateIsBetween(
-                gate.getId(),gateReg.getStartingDate(),gateReg.getEndDate())
-                    .ifPresent(
-                            (aBoolean) -> new NotFoundEntityException(
-                            "Gate of "+gate.getId() + " is Booked earlier ")
-                    );
+
+        if (gateRegRepository.existsGateRegByGateIdEqualsAndStartingDateIsBetweenOrEndDateIsBetween(
+                gate.getId()
+                ,gateReg.getStartingDate(),gateReg.getEndDate()
+                ,gateReg.getStartingDate(),gateReg.getEndDate())){
+            throw new NotFoundEntityException("Gate of "+gate.getId() + " is Booked earlier ");
+        }
 
     }
 }

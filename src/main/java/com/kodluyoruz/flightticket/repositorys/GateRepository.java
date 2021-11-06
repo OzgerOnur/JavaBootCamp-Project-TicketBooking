@@ -8,8 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface GateRepository extends JpaRepository<Gate,Integer> {
-    Optional<Gate> findByIdAndAirportIdEquals(Integer gateId,Integer AirportId);
-
+    Optional<Gate> findByIdAndAirportId(Integer gateId,Integer AirportId);
 
 
 }

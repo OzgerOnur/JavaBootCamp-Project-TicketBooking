@@ -17,7 +17,7 @@ public class AirportController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public AirportDto createAirport(AirportRequest airportRequest) {
+    public AirportDto createAirport(@RequestBody AirportRequest airportRequest) {
         return airportService.createAirport(airportRequest);
     }
 

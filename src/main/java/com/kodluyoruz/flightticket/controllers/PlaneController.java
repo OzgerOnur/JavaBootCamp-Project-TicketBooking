@@ -10,19 +10,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(name = "planes")
+@RequestMapping("planes")
 @RequiredArgsConstructor
 public class PlaneController {
     private final PlaneService planeService;
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public PlaneDto createPlane(PlaneRequest planeRequest){
+    public PlaneDto createPlane(@RequestBody PlaneRequest planeRequest){
         return planeService.createPlane(planeRequest);
     }
 
     @GetMapping()
-    public List<PlaneDto> getplanes(){
+    public List<PlaneDto> getPlanes(){
         return planeService.getPlanes();
     }
 

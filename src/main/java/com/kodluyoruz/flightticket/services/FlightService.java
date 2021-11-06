@@ -2,6 +2,7 @@ package com.kodluyoruz.flightticket.services;
 
 import com.kodluyoruz.flightticket.models.dto.FlightDto;
 import com.kodluyoruz.flightticket.models.entity.Flight;
+import com.kodluyoruz.flightticket.models.entity.GateReg;
 import com.kodluyoruz.flightticket.models.requests.flight.FlightCreateRequest;
 import com.kodluyoruz.flightticket.repositorys.FlightRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,12 +28,13 @@ public class FlightService {
 
         return MAPPER_FLIGHT.flightToFlightDto(createdFlight);
     }
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+   @Transactional(propagation = Propagation.REQUIRES_NEW)
     protected Flight createFlightEntity(Flight flight) {
-        //todo kayıt esnasında flight ID durumuna bak
+
         Flight createdFlight = flightRepository.save(flight);
         createdFlight.getGateReg().setFlightId(createdFlight.getId());
         createdFlight = flightRepository.save(createdFlight);
+
         return createdFlight;
     }
 
