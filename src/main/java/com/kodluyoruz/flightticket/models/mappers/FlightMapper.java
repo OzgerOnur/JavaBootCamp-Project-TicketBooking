@@ -3,9 +3,11 @@ package com.kodluyoruz.flightticket.models.mappers;
 import com.kodluyoruz.flightticket.models.dto.FlightDto;
 import com.kodluyoruz.flightticket.models.entity.Flight;
 import com.kodluyoruz.flightticket.models.requests.flight.FlightCreateRequest;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import com.kodluyoruz.flightticket.models.requests.flight.FlightUpdateRequest;
+import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface FlightMapper {
@@ -15,4 +17,9 @@ public interface FlightMapper {
     Flight createRequestToFlight(FlightCreateRequest flightCreateRequest);
 
     FlightDto flightToFlightDto(Flight createdFlight);
+
+   List<FlightDto> flightsToFlightDtos(List<Flight> flights);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void flightUpdateRequest(@MappingTarget Flight flight, FlightUpdateRequest flightUpdateRequest);
 }

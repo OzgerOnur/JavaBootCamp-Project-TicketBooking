@@ -1,4 +1,4 @@
-package com.kodluyoruz.flightticket.models.dto;
+package com.kodluyoruz.flightticket.models.requests.flight;
 
 import com.kodluyoruz.flightticket.models.entity.GateReg;
 import com.kodluyoruz.flightticket.models.entity.Seat;
@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -16,12 +17,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class FlightDto {
-    private Integer id;
+public class FlightUpdateRequest {
+
     private Integer planeId;
     private Integer toAirportId;
     private Integer fromAirportId;
     private Date flightDate;
-    private GateRegDto gateReg;
-    private List<SeatDto> seats;
+
 }
