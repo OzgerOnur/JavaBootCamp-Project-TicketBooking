@@ -1,5 +1,6 @@
 package com.kodluyoruz.flightticket;
 
+import com.kodluyoruz.flightticket.models.dto.PassangerDto;
 import com.kodluyoruz.flightticket.models.entity.*;
 import com.kodluyoruz.flightticket.models.entity.aboutAirport.Airport;
 import com.kodluyoruz.flightticket.models.entity.aboutAirport.Gate;
@@ -20,6 +21,9 @@ public class MainCommand implements CommandLineRunner {
     private final GateRepository gateRepository;
     private final FlightRepository flightRepository;
     private final GateRegRepository gateRegRepository;
+    private final PassengerRepository passengerRepository;
+    private final TicketRepository ticketRepository;
+    private final SeatRepository seatRepository;
 
 
 
@@ -119,6 +123,63 @@ public class MainCommand implements CommandLineRunner {
         return fligts;
     }
 
+    List<Passenger> passengerBuilder(){
+        List<Passenger> passengers = Arrays.asList(
+                Passenger.builder().name("ali").mail("ali@mail").build(),
+                Passenger.builder().name("veli").mail("veli@mail").build(),
+                Passenger.builder().name("zeynep").mail("zeynep@mail").build(),
+                Passenger.builder().name("ayse").mail("ayse@mail").build(),
+                Passenger.builder().name("berkeCan").mail("berkeCan@mail").build(),
+                Passenger.builder().name("PelinSu").mail("PelinSu@mail").build()
+        );
+
+        passengers = passengerRepository.saveAll(passengers);
+        return passengers;
+
+    }
+
+    List<Ticket> ticketBuilder(List<Passenger> passengers){
+        List<Ticket> tickets = Arrays.asList(
+                Ticket.builder().passengerId(null).seat(null).build(),
+                Ticket.builder().passengerId(null).seat(null).build(),
+                Ticket.builder().passengerId(null).seat(null).build(),
+                Ticket.builder().passengerId(null).seat(null).build(),
+                Ticket.builder().passengerId(null).seat(null).build(),
+                Ticket.builder().passengerId(null).seat(null).build()
+        );
+        for (int i = 0; i < tickets.size();i++){
+            tickets.get(i).setPassengerId(passengers.get(i).getId());
+        }
+        return ticketRepository.saveAll(tickets);
+
+    }
+
+    List<Seat> seatBuilder(List<Ticket> tickets, List<Flight> flights){
+        List<Seat> seats = Arrays.asList(
+                Seat.builder().seatNumber(null).flightId(null).ticketId(null).build(),
+                Seat.builder().seatNumber(null).flightId(null).ticketId(null).build(),
+                Seat.builder().seatNumber(null).flightId(null).ticketId(null).build(),
+                Seat.builder().seatNumber(null).flightId(null).ticketId(null).build(),
+                Seat.builder().seatNumber(null).flightId(null).ticketId(null).build(),
+                Seat.builder().seatNumber(null).flightId(null).ticketId(null).build()
+        );
+        for (int i = 0; i < 3;i++){
+            seats.get(i).setSeatNumber(i+7);
+            seats.get(i).setFlightId(flights.get(0).getId());
+            seats.get(i).setTicketId(tickets.get(i).getId());
+        }
+        for (int i = 3; i < 6;i++){
+            seats.get(i).setSeatNumber(i+7);
+            seats.get(i).setFlightId(flights.get(1).getId());
+            seats.get(i).setTicketId(tickets.get(i).getId());
+        }
+
+        return seatRepository.saveAll(seats);
+
+
+
+    }
+
 
     @Override
     public void run(String... args) throws Exception {
@@ -127,40 +188,9 @@ public class MainCommand implements CommandLineRunner {
         List<Airport> airports = airportBuilder();
         List<Gate> gates = gatesBuilder(airports);
         List<Flight> flights = flightAndGateRegBuilder(Planes,airports,gates);
-
-
-        List<Passenger> Passangers = Arrays.asList(
-                Passenger.builder().name("ali").mail("ali@mail").build(),
-                Passenger.builder().name("veli").mail("veli@mail").build(),
-                Passenger.builder().name("ahmet").mail("ahmet@mail").build(),
-                Passenger.builder().name("kemal").mail("kemal@mail").build(),
-                Passenger.builder().name("berkeCan").mail("berkeCan@mail").build()
-        );
-
-        List<Seat> Seats = Arrays.asList(
-                Seat.builder().seatNumber(null).flightId(null).ticketId(null).build(),
-                Seat.builder().seatNumber(null).flightId(null).ticketId(null).build(),
-                Seat.builder().seatNumber(null).flightId(null).ticketId(null).build(),
-                Seat.builder().seatNumber(null).flightId(null).ticketId(null).build(),
-                Seat.builder().seatNumber(null).flightId(null).ticketId(null).build(),
-                Seat.builder().seatNumber(null).flightId(null).ticketId(null).build()
-        );
-
-        List<Ticket> Tickets = Arrays.asList(
-                Ticket.builder().passengerId(null).seat(null).build(),
-                Ticket.builder().passengerId(null).seat(null).build(),
-                Ticket.builder().passengerId(null).seat(null).build(),
-                Ticket.builder().passengerId(null).seat(null).build(),
-                Ticket.builder().passengerId(null).seat(null).build(),
-                Ticket.builder().passengerId(null).seat(null).build()
-        );
-
-
-
-
-
-
-
+        List<Passenger> passengers = passengerBuilder();
+        List<Ticket> tickets = ticketBuilder(passengers);
+        List<Seat> seats = seatBuilder(tickets,flights);
 
 
 
