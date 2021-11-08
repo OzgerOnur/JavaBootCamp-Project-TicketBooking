@@ -38,9 +38,9 @@ public class MainCommand implements CommandLineRunner {
 
     List<Airport> airportBuilder(){
         List<Airport> airports = Arrays.asList(
-                Airport.builder().name("Sabiha").gateCapacity(50).gates(null).takingFlights(null).goingFlights(null).build(),
-                Airport.builder().name("London").gateCapacity(30).gates(null).takingFlights(null).goingFlights(null).build(),
-                Airport.builder().name("Esenboga").gateCapacity(50).gates(null).takingFlights(null).goingFlights(null).build()
+                Airport.builder().name("Sabiha").gateCapacity(50).gates(new ArrayList<Gate>()).takingFlights(null).goingFlights(null).build(),
+                Airport.builder().name("London").gateCapacity(30).gates(new ArrayList<Gate>()).takingFlights(null).goingFlights(null).build(),
+                Airport.builder().name("Esenboga").gateCapacity(50).gates(new ArrayList<Gate>()).takingFlights(null).goingFlights(null).build()
         );
 
         for (Airport ap: airports) {
@@ -68,6 +68,7 @@ public class MainCommand implements CommandLineRunner {
                 g = gateRepository.save(g);
 
             }
+            ap.getGates().addAll(gates);
             gatesTurnback.addAll(gates);
         }
         return gatesTurnback;
