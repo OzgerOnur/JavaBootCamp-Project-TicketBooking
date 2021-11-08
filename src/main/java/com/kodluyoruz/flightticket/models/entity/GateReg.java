@@ -15,7 +15,7 @@ import java.util.Date;
 @Setter
 public class GateReg extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "flight_id")

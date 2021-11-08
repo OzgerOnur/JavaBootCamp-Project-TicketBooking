@@ -21,7 +21,7 @@ import java.util.List;
 @Where(clause = "deleted = false")
 public class Flight extends BaseEntity{
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "gate_id")

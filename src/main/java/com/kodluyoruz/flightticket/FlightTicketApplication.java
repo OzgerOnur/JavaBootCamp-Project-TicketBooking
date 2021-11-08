@@ -14,4 +14,7 @@ public class FlightTicketApplication {
         SpringApplication.run(FlightTicketApplication.class, args);
     }
 
+    //todo Project should include example data initialization.
+    // todo Unit tests should be written.
+    //todo Attention should be paid to data consistency
 }

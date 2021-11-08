@@ -1,6 +1,8 @@
 package com.kodluyoruz.flightticket.models.entity;
 
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
@@ -11,10 +13,12 @@ import javax.persistence.*;
 @Builder
 @Getter
 @Setter
+@SQLDelete(sql = "UPDATE airports SET deleted = true WHERE id = ?")
+@Where(clause = "deleted = false")
 public class Ticket extends BaseEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "passenger_id")

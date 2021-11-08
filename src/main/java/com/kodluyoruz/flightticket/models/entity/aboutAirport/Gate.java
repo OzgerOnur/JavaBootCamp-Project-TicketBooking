@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 public class Gate extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private Integer gateNumber;

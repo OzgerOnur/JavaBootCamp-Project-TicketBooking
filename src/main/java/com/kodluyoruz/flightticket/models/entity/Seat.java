@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Seat extends BaseEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private Integer seatNumber;

@@ -20,7 +20,7 @@ import java.util.List;
 @Where(clause = "deleted = false")
 public class Airport extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String name;
