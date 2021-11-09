@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.sql.Time;
 import java.util.*;
 
-@Component
+//@Component
 @RequiredArgsConstructor
 public class MainCommand implements CommandLineRunner {
     private final PlaneRepository planeRepository;
@@ -82,16 +82,17 @@ public class MainCommand implements CommandLineRunner {
 
         // gateReg numbers should be equal Flight number
         List<GateReg> gateRegs = Arrays.asList(
-                GateReg.builder().flightId(null).gateId(null).startingDate(null).endDate(null).build(),
-                GateReg.builder().flightId(null).gateId(null).startingDate(null).endDate(null).build()
+                GateReg.builder().flightId(null).gateId(null).startingDate(new Date()).endDate(new Date()).build(),
+                GateReg.builder().flightId(null).gateId(null).startingDate(new Date()).endDate(new Date()).build()
         );
-        List<Date> dates = new ArrayList<>();
+
+        List<Date> flightDates = new ArrayList<>();
         for (int i = 0; i<gateRegs.size(); i++){
-            dates.add(new Date());
-            dates.get(i).setTime(62000000 + i*2080000);
-            gateRegs.get(i).setStartingDate(dates.get(i));
-            dates.get(i).setTime(dates.get(i).getTime() + 1080000);
-            gateRegs.get(i).setEndDate(dates.get(i));
+            flightDates.add(new Date());
+
+            gateRegs.get(i).getStartingDate().setTime(gateRegs.get(i).getStartingDate().getTime() + (long)10*i*1000*60*60);
+            gateRegs.get(i).getEndDate().setTime(gateRegs.get(i).getStartingDate().getTime() + 1000*60*60);
+            flightDates.get(i).setTime(gateRegs.get(i).getEndDate().getTime() - 1000*60*20 );
         }
 
         List<Flight> fligts = new ArrayList<>();
@@ -100,7 +101,7 @@ public class MainCommand implements CommandLineRunner {
                                 planes.get(0).getId())
                         .toAirportId(airports.get(0).getId())
                         .fromAirportId(airports.get(1).getId())
-                        .flightDate(gateRegs.get(0).getEndDate())
+                        .flightDate(flightDates.get(0))
                         .gateReg(null).seats(null).build();
                flight0 = flightRepository.save(flight0);
                gateRegs.get(0).setGateId(airports.get(1).getGates().get(0).getId());
@@ -112,7 +113,7 @@ public class MainCommand implements CommandLineRunner {
                         planes.get(1).getId())
                 .toAirportId(airports.get(2).getId())
                 .fromAirportId(airports.get(1).getId())
-                .flightDate(gateRegs.get(1).getEndDate())
+                .flightDate(flightDates.get(1))
                 .gateReg(null).seats(null).build();
         flight1 = flightRepository.save(flight1);
         gateRegs.get(1).setGateId(airports.get(1).getGates().get(1).getId());

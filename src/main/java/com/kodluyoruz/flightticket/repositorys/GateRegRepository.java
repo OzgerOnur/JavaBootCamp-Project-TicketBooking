@@ -3,12 +3,28 @@ package com.kodluyoruz.flightticket.repositorys;
 import com.kodluyoruz.flightticket.models.entity.GateReg;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface GateRegRepository extends JpaRepository<GateReg,Integer> {
-    Boolean existsGateRegByGateIdEqualsAndStartingDateIsBetweenOrEndDateIsBetween
-            (Integer gateId, Date dateStart1, Date dateEnd1,Date dateStart2, Date dateEnd2);
+//    A /\ (B \/ C) <=> (A /\ B) \/ (A /\ C)
+//    A and (B or C) <=> (A and B) or (A and C)
+//    is like (first & condition) OR ( second & condition) --> condition & ( first or second)
+
+    Boolean existsGateByGateIdEqualsAndStartingDateBetweenOrGateIdEqualsAndEndDateBetween
+            (Integer gateId1, Date dateStart1, Date dateEnd1,Integer gateId2,Date dateStart2, Date dateEnd2);
+
+    @Query("SELECT gr FROM #{#entityName} gr WHERE " +
+            " gr.gateId = ?1 " +
+            " AND ((( ?2 BETWEEN gr.startingDate AND gr.endDate) OR (?3 BETWEEN gr.startingDate AND gr.endDate)) " +
+            " OR (( gr.startingDate BETWEEN ?2 AND ?3) OR (gr.endDate BETWEEN ?2 AND ?3))) ")
+    List<GateReg> isExistsSameDateGateReg(Integer id, Date startingDate, Date endDate);
+    //if there wasnt second betweens line , could be added date that including old dates
+
+
 }

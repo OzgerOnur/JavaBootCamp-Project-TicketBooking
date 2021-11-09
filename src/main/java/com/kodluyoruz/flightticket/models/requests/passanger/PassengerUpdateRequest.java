@@ -1,12 +1,11 @@
 package com.kodluyoruz.flightticket.models.requests.passanger;
 
-import com.kodluyoruz.flightticket.models.entity.Ticket;
+import com.kodluyoruz.flightticket.models.requests.ticket.TicketCreateRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.util.List;
 
 @Data
@@ -15,9 +14,9 @@ import java.util.List;
 @Builder
 public class PassengerUpdateRequest {
 
-
-    private Integer id;
-    // todo bak private List<Ticket> tickets;
     private String name;
     private String mail;
+
+
+
 }

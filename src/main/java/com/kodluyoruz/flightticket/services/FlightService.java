@@ -1,5 +1,6 @@
 package com.kodluyoruz.flightticket.services;
 
+import com.kodluyoruz.flightticket.exceptions.exceptionsType.FlightAndGateRegDateException;
 import com.kodluyoruz.flightticket.exceptions.exceptionsType.NotFoundEntityException;
 import com.kodluyoruz.flightticket.models.dto.FlightDto;
 import com.kodluyoruz.flightticket.models.entity.Flight;
@@ -8,11 +9,14 @@ import com.kodluyoruz.flightticket.models.requests.flight.FlightSearchRequestWit
 import com.kodluyoruz.flightticket.models.requests.flight.FlightSearchRequestWithName;
 import com.kodluyoruz.flightticket.models.requests.flight.FlightUpdateRequest;
 import com.kodluyoruz.flightticket.repositorys.FlightRepository;
+import com.kodluyoruz.flightticket.repositorys.PlaneRepository;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,14 +26,14 @@ import static com.kodluyoruz.flightticket.models.mappers.FlightMapper.MAPPER_FLI
 @RequiredArgsConstructor
 public class FlightService {
     private final FlightRepository flightRepository;
-    private final PlaneService planeService;
+    private final PlaneRepository planeRepository;
     private final AirportService airportService;
     private final GateService gateService;
 
 
     public FlightDto createFlight(FlightCreateRequest flightCreateRequest) {
         Flight flight = MAPPER_FLIGHT.createRequestToFlight(flightCreateRequest);
-        flightCrateValidetion(flight);
+        flightCrateValidation(flight);
         Flight createdFlight = createFlightEntity(flight);
 
         return MAPPER_FLIGHT.flightToFlightDto(createdFlight);
@@ -44,11 +48,16 @@ public class FlightService {
         return createdFlight;
     }
 
-    private void flightCrateValidetion(Flight flight){
-        planeService.isPlaneExist(flight.getPlaneId());
+    private void flightCrateValidation(Flight flight){
+        isPlaneExist(flight.getPlaneId());
         airportService.isAirportExist(flight.getToAirportId());
         airportService.isAirportExist(flight.getFromAirportId());
+        areFlightAndGateRegDateValid(flight);
         gateService.isGateValidAndAvailable(flight.getFromAirportId(),flight.getGateReg());
+    }
+
+    protected void isPlaneExist(Integer planeId) {
+        planeRepository.findById(planeId).orElseThrow(() -> new NotFoundEntityException("Plane Not Found") );
     }
 
     public List<FlightDto> getFlightsWithName(FlightSearchRequestWithName flightSearchRequestWithName) {
@@ -93,13 +102,44 @@ public class FlightService {
     public FlightDto updateFlight(Integer id, FlightUpdateRequest flightUpdateRequest) {
         Flight flight = getFlightEntity(id);
         MAPPER_FLIGHT.flightUpdateRequest(flight,flightUpdateRequest);
+        flightUpdateValidation(flight);
         return MAPPER_FLIGHT.flightToFlightDto(flightRepository.save(flight));
     }
+
+    private void flightUpdateValidation(Flight flight){
+        isPlaneExist(flight.getPlaneId());
+        airportService.isAirportExist(flight.getToAirportId());
+        airportService.isAirportExist(flight.getFromAirportId());
+        areFlightAndGateRegDateValid(flight);
+        gateService.isGateValidAndAvailable(flight.getFromAirportId(),flight.getGateReg());
+    }
+
+    private void areFlightAndGateRegDateValid(Flight flight) {
+        if(flight.getGateReg().getStartingDate().before(flight.getGateReg().getEndDate())
+        && flight.getGateReg().getStartingDate().before(flight.getFlightDate())
+        && flight.getGateReg().getEndDate().after(flight.getFlightDate())
+        ){}
+        else {
+            throw new FlightAndGateRegDateException(flight);
+        }
+
+    }
+
 
     private Flight getFlightEntity(Integer id) {
         Flight flight = flightRepository.findById(id).orElseThrow(
                 () -> new NotFoundEntityException(id + " Flight Not Found")
         );
         return flight;
+    }
+
+
+    protected List<Flight> getFlightWithInPlaneId(Integer planeId){
+        return flightRepository.getFlightByPlaneId(planeId);
+    }
+
+    protected List<Flight> getFlightWithInPlaneIdAfterNow(Integer planeId){
+        Date now = new Date();
+        return flightRepository.getFlightByPlaneIdAndFlightDateAfter(planeId,now);
     }
 }

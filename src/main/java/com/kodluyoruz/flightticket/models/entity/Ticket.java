@@ -13,8 +13,8 @@ import javax.persistence.*;
 @Builder
 @Getter
 @Setter
-@SQLDelete(sql = "UPDATE airports SET deleted = true WHERE id = ?")
-@Where(clause = "deleted = false")
+@SQLDelete(sql = " UPDATE tickets SET deleted = true WHERE id = ? ")
+@Where(clause = " deleted = false ")
 public class Ticket extends BaseEntity{
 
     @Id

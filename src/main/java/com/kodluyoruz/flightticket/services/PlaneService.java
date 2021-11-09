@@ -1,10 +1,13 @@
 package com.kodluyoruz.flightticket.services;
 
 import com.kodluyoruz.flightticket.exceptions.exceptionsType.NotFoundEntityException;
+import com.kodluyoruz.flightticket.exceptions.exceptionsType.PlaneCapacityException;
 import com.kodluyoruz.flightticket.models.dto.PlaneDto;
+import com.kodluyoruz.flightticket.models.entity.Flight;
 import com.kodluyoruz.flightticket.models.entity.aboutPlane.Plane;
+import com.kodluyoruz.flightticket.models.requests.plane.PlaneUpdateRequest;
 import com.kodluyoruz.flightticket.repositorys.PlaneRepository;
-import com.kodluyoruz.flightticket.models.requests.PlaneRequest;
+import com.kodluyoruz.flightticket.models.requests.plane.PlaneCreateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +19,12 @@ import static com.kodluyoruz.flightticket.models.mappers.PlaneMapper.MAPPER_PLAN
 @RequiredArgsConstructor
 public class PlaneService {
     private final PlaneRepository planeRepository;
+    private final FlightService flightService;
+    private final SeatAndTicketService seatAndTicketService;
 
-    public PlaneDto createPlane(PlaneRequest planeRequest) {
-        Plane plane = MAPPER_PLANE.requestToPlane(planeRequest);
+
+    public PlaneDto createPlane(PlaneCreateRequest planeCreateRequest) {
+        Plane plane = MAPPER_PLANE.requestToPlane(planeCreateRequest);
         Plane createdPlane = planeRepository.save(plane);
         return MAPPER_PLANE.planeToPlaneDto(createdPlane);
     }
@@ -34,7 +40,8 @@ public class PlaneService {
     }
 
     private Plane getPlaneEntity(Integer id) {
-        Plane plane = planeRepository.getById(id);
+        Plane plane = planeRepository.findById(id).orElseThrow(() ->
+                new NotFoundEntityException(id + " Plane not found"));
         return plane;
     }
 
@@ -44,5 +51,23 @@ public class PlaneService {
 
     public void isPlaneExist(Integer planeId) {
         planeRepository.findById(planeId).orElseThrow(() -> new NotFoundEntityException("Plane Not Found") );
+    }
+
+
+    public PlaneDto updatePlane(Integer id, PlaneUpdateRequest planeUpdateRequest) {
+        Plane plane = getPlaneEntity(id);
+        MAPPER_PLANE.planeUpdateRequest(plane,planeUpdateRequest);
+        PlaneUpdateValid(plane);
+        return MAPPER_PLANE.planeToPlaneDto(planeRepository.save(plane));
+    }
+
+    private void PlaneUpdateValid(Plane plane) {
+        List<Flight> flights = flightService.getFlightWithInPlaneIdAfterNow(plane.getId());
+        for (Flight f: flights) {
+            Integer soldSeatNumber = seatAndTicketService.getSoldSeatOfFlightNumber(f.getId());
+            if(!(plane.getCapacity() >= soldSeatNumber)){
+                throw new PlaneCapacityException(plane,f,soldSeatNumber);
+            }
+        }
     }
 }

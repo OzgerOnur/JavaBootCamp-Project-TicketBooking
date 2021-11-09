@@ -1,24 +1,20 @@
 package com.kodluyoruz.flightticket.models.dto;
 
-import com.kodluyoruz.flightticket.models.entity.Ticket;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PassangerDto {
+public class TicketDto {
+
 
     private Integer id;
-    private String name;
-    private String mail;
-    private List<TicketDto> tickets;
+    private Integer passengerId;
+    private SeatDto seat;
+
 
 }
-

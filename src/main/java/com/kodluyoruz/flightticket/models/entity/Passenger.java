@@ -15,17 +15,16 @@ import java.util.List;
 @Builder
 @Getter
 @Setter
-@SQLDelete(sql = "UPDATE airports SET deleted = true WHERE id = ?")
-@Where(clause = "deleted = false")
+@SQLDelete(sql = " UPDATE passengers SET deleted = true WHERE id = ? ")
+@Where(clause = " deleted = false ")
 public class Passenger extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "passenger",orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL ,mappedBy = "passenger",orphanRemoval = true)
     private List<Ticket> tickets;
-
 
     private String name;
 

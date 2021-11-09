@@ -14,7 +14,6 @@ import java.util.List;
 public interface FlightRepository extends JpaRepository<Flight,Integer> {
 
 
-
     List<Flight> findByToAirportIdAndFromAirportIdAndFlightDateBetween(
             Integer toAirportId,
             Integer fromAirPortId,
@@ -33,5 +32,7 @@ public interface FlightRepository extends JpaRepository<Flight,Integer> {
     );
 
 
+    List<Flight> getFlightByPlaneId(Integer planeId);
+    List<Flight> getFlightByPlaneIdAndFlightDateAfter(Integer planeId,Date datesAfter);
 
 }

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotEmpty;
 import java.util.Date;
@@ -22,6 +23,7 @@ public class FlightCreateRequest {
     @NotEmpty
     private Integer fromAirportId;
     @NotEmpty
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXX")
     private Date flightDate;
     @NotEmpty
     private GateRegCreateRequest gateRegCreateRequest;

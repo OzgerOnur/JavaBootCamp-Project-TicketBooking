@@ -1,5 +1,6 @@
 package com.kodluyoruz.flightticket.services;
 
+import com.kodluyoruz.flightticket.exceptions.exceptionsType.GateRegEarlierBookedException;
 import com.kodluyoruz.flightticket.exceptions.exceptionsType.NotFoundEntityException;
 import com.kodluyoruz.flightticket.models.entity.GateReg;
 import com.kodluyoruz.flightticket.models.entity.aboutAirport.Gate;
@@ -23,12 +24,15 @@ public class GateService {
                 () -> new NotFoundEntityException(fromAirportId + " And "+ gateReg.getGateId() + "arent matched")
         );
 
-        if (gateRegRepository.existsGateRegByGateIdEqualsAndStartingDateIsBetweenOrEndDateIsBetween(
+        List<GateReg> bookedGateReg = gateRegRepository.isExistsSameDateGateReg(
                 gate.getId()
-                ,gateReg.getStartingDate(),gateReg.getEndDate()
-                ,gateReg.getStartingDate(),gateReg.getEndDate())){
-            throw new NotFoundEntityException("Gate of "+gate.getId() + " is Booked earlier ");
+                ,gateReg.getStartingDate()
+                ,gateReg.getEndDate());
+
+        if(!bookedGateReg.isEmpty()){
+            throw new GateRegEarlierBookedException(bookedGateReg);
         }
+
 
     }
 }

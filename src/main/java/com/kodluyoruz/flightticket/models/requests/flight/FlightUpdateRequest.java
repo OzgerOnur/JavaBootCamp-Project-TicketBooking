@@ -1,17 +1,13 @@
 package com.kodluyoruz.flightticket.models.requests.flight;
 
-import com.kodluyoruz.flightticket.models.entity.GateReg;
-import com.kodluyoruz.flightticket.models.entity.Seat;
-import com.kodluyoruz.flightticket.models.entity.aboutAirport.Airport;
-import com.kodluyoruz.flightticket.models.entity.aboutPlane.Plane;
+import com.kodluyoruz.flightticket.models.requests.Gate.GateRegInFlightUpdateRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -22,6 +18,8 @@ public class FlightUpdateRequest {
     private Integer planeId;
     private Integer toAirportId;
     private Integer fromAirportId;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXX")
     private Date flightDate;
+    private GateRegInFlightUpdateRequest gateReg;
 
 }

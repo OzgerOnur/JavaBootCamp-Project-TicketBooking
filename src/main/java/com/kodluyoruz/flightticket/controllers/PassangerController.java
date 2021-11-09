@@ -22,7 +22,7 @@ public class PassangerController {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public PassangerDto createPassenger(@Valid @RequestBody CreatePassangerRequest createPassangerRequest){
-        return passengerService.createPassanger(createPassangerRequest);
+        return passengerService.createPassenger(createPassangerRequest);
     }
 
     @GetMapping("{id}")

@@ -9,7 +9,7 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(uses = GateRegMapper.class ) //componentModel = "spring",
 public interface FlightMapper {
     FlightMapper MAPPER_FLIGHT = Mappers.getMapper(FlightMapper.class);
 

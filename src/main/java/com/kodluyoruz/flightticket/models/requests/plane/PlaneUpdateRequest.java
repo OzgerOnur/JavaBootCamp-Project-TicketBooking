@@ -1,6 +1,6 @@
-package com.kodluyoruz.flightticket.models.dto;
+package com.kodluyoruz.flightticket.models.requests.plane;
 
-import com.kodluyoruz.flightticket.models.entity.Ticket;
+import com.kodluyoruz.flightticket.models.entity.Flight;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,12 +13,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PassangerDto {
+public class PlaneUpdateRequest {
 
-    private Integer id;
     private String name;
-    private String mail;
-    private List<TicketDto> tickets;
+    private Integer serialNumber;
+    private Integer capacity;
+
 
 }
-

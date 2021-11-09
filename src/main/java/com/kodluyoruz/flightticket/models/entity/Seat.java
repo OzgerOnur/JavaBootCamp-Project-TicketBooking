@@ -1,6 +1,8 @@
 package com.kodluyoruz.flightticket.models.entity;
 
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
@@ -11,6 +13,8 @@ import javax.persistence.*;
 @Builder
 @Getter
 @Setter
+@SQLDelete(sql = " UPDATE seats SET deleted = true WHERE id = ? ")
+@Where(clause = " deleted = false ")
 public class Seat extends BaseEntity{
 
     @Id

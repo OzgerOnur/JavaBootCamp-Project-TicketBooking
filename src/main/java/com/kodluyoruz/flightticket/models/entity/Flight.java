@@ -17,8 +17,8 @@ import java.util.List;
 @Builder
 @Getter
 @Setter
-@SQLDelete(sql = "UPDATE flights SET deleted = true WHERE id = ?")
-@Where(clause = "deleted = false")
+@SQLDelete(sql = " UPDATE flights SET deleted = true WHERE id = ? ")
+@Where(clause = " deleted = false ")
 public class Flight extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

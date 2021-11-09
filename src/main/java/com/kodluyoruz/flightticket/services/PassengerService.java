@@ -21,7 +21,7 @@ public class PassengerService {
     private final PassengerRepository passengerRepository;
 
 
-    public PassangerDto createPassanger(CreatePassangerRequest createPassangerRequest) {
+    public PassangerDto createPassenger(CreatePassangerRequest createPassangerRequest) {
         Passenger passenger = MAPPER_PASSENGER.createPassangerRequestToPassenger(createPassangerRequest);
         Passenger createdPassenger = passengerRepository.save(passenger);
         return MAPPER_PASSENGER.passengerToPassengerDto(createdPassenger);
@@ -34,7 +34,7 @@ public class PassengerService {
 
     private Passenger getPassengerEntity(Integer id) {
         Passenger passenger = passengerRepository.findById(id).orElseThrow(
-                () -> new NotFoundEntityException(id + "Passanger Not Found")
+                () -> new NotFoundEntityException(id + "Passenger Not Found")
         );
         return passenger;
     }
@@ -50,14 +50,11 @@ public class PassengerService {
 
     public void deletePassenger(Integer id) {
         passengerRepository.deleteById(id);
-        // todo tickets of this passanger should be deleted because there is soft delete
-        // todo  or try is this doing soft delete on Cascade too
     }
 
     public PassangerDto updatePassenger(Integer id, PassengerUpdateRequest passengerUpdateRequest) {
         Passenger passenger = getPassengerEntity(id);
         MAPPER_PASSENGER.passengerUpdateFromUpdateRequest(passenger,passengerUpdateRequest);
         return MAPPER_PASSENGER.passengerToPassengerDto(passengerRepository.save(passenger));
-        // todo update edince cascadelerini de ediyor mu ? yani onlarında da idsini eşitliyor mu
     }
 }

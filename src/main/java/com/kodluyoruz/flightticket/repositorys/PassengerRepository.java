@@ -4,6 +4,7 @@ import com.kodluyoruz.flightticket.models.entity.Flight;
 import com.kodluyoruz.flightticket.models.entity.Passenger;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.web.PagedResourcesAssemblerArgumentResolver;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Repository
 public interface PassengerRepository extends JpaRepository<Passenger,Integer> {
+
 
 
     @Query("select p from Passenger p "

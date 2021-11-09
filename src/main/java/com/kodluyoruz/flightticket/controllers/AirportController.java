@@ -43,5 +43,4 @@ public class AirportController {
     }
 
 
-//todo gateRef could be needed to change in here, because when flight was changed gareRef wasnt changed
 }

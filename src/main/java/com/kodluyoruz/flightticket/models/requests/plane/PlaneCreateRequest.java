@@ -1,4 +1,4 @@
-package com.kodluyoruz.flightticket.models.requests;
+package com.kodluyoruz.flightticket.models.requests.plane;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PlaneRequest {
-    private Integer id;
+public class PlaneCreateRequest {
+
     private Integer capacity;
     private String name;
     private Integer serialNumber;
