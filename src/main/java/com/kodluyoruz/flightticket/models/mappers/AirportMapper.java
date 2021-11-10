@@ -2,7 +2,7 @@ package com.kodluyoruz.flightticket.models.mappers;
 
 import com.kodluyoruz.flightticket.models.dto.AirportDto;
 import com.kodluyoruz.flightticket.models.entity.aboutAirport.Airport;
-import com.kodluyoruz.flightticket.models.requests.AirportRequest;
+import com.kodluyoruz.flightticket.models.requests.airport.AirportRequest;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 

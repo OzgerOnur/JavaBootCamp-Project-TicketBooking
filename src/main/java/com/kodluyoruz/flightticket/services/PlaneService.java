@@ -8,6 +8,7 @@ import com.kodluyoruz.flightticket.models.entity.aboutPlane.Plane;
 import com.kodluyoruz.flightticket.models.requests.plane.PlaneUpdateRequest;
 import com.kodluyoruz.flightticket.repositorys.PlaneRepository;
 import com.kodluyoruz.flightticket.models.requests.plane.PlaneCreateRequest;
+import com.kodluyoruz.flightticket.repositorys.SeatRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ import static com.kodluyoruz.flightticket.models.mappers.PlaneMapper.MAPPER_PLAN
 public class PlaneService {
     private final PlaneRepository planeRepository;
     private final FlightService flightService;
-    private final SeatAndTicketService seatAndTicketService;
+    private final SeatRepository seatRepository ;
 
 
     public PlaneDto createPlane(PlaneCreateRequest planeCreateRequest) {
@@ -64,7 +65,7 @@ public class PlaneService {
     private void PlaneUpdateValid(Plane plane) {
         List<Flight> flights = flightService.getFlightWithInPlaneIdAfterNow(plane.getId());
         for (Flight f: flights) {
-            Integer soldSeatNumber = seatAndTicketService.getSoldSeatOfFlightNumber(f.getId());
+            Integer soldSeatNumber = seatRepository.countSeatByFlightIdEquals(f.getId());
             if(!(plane.getCapacity() >= soldSeatNumber)){
                 throw new PlaneCapacityException(plane,f,soldSeatNumber);
             }

@@ -1,13 +1,10 @@
 package com.kodluyoruz.flightticket.models.dto;
 
-import com.kodluyoruz.flightticket.models.entity.Flight;
-import com.kodluyoruz.flightticket.models.entity.aboutAirport.Gate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.util.List;
 
 @Data

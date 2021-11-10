@@ -12,14 +12,10 @@ import java.util.Optional;
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket,Integer> {
 
-    @Query("select p from Passenger p where p.id = ?1")
-    Optional<Passenger> isPassengerExist(Integer passengerId);
 
-    @Query("select f from Flight f where f.id = ?1")
-    Optional<Flight> isFlightExist(Integer flightId);
+    @Query("select t.passengerId from Ticket t where t.id = ?1 ")
+    Integer getPassengerIdWithTicketId(Integer ticketId);
 
-    @Query("select count(f.seats) from Flight f where f.id = ?1")
-    int countNumberOfFlightsSeat(Integer flightId);
 
 
 }

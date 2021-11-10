@@ -2,7 +2,7 @@ package com.kodluyoruz.flightticket.exceptions;
 
 import com.kodluyoruz.flightticket.exceptions.exceptionsType.*;
 import com.kodluyoruz.flightticket.models.dto.GateRegDto;
-import com.kodluyoruz.flightticket.services.SeatAlreadyBooked;
+import com.kodluyoruz.flightticket.exceptions.exceptionsType.SeatAlreadyBooked;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,6 +53,12 @@ public class GlobalExceptionsHandler {
     @ExceptionHandler(SeatNumberOutSide.class)
     public ResponseEntity<String> seatNumberException(SeatNumberOutSide seatNumberOutSide){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(seatNumberOutSide.toString());
+    }
+
+
+    @ExceptionHandler(FlightDatePassedException.class)
+    public ResponseEntity<String> seatNumberException(FlightDatePassedException flightDatePassedException){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(flightDatePassedException.getMessage());
     }
 
 

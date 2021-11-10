@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface FlightRepository extends JpaRepository<Flight,Integer> {
@@ -34,5 +35,12 @@ public interface FlightRepository extends JpaRepository<Flight,Integer> {
 
     List<Flight> getFlightByPlaneId(Integer planeId);
     List<Flight> getFlightByPlaneIdAndFlightDateAfter(Integer planeId,Date datesAfter);
+
+    @Query("select f from Flight f where f.id = ?1")
+    Optional<Flight> isFlightExist(Integer flightId);
+
+    @Query("select count(f.seats) from Flight f where f.id = ?1")
+    int countNumberOfFlightsSeat(Integer flightId);
+
 
 }

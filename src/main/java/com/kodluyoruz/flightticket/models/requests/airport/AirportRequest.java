@@ -1,4 +1,4 @@
-package com.kodluyoruz.flightticket.models.requests;
+package com.kodluyoruz.flightticket.models.requests.airport;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

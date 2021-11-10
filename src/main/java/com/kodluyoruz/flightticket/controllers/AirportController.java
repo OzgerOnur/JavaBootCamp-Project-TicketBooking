@@ -1,7 +1,7 @@
 package com.kodluyoruz.flightticket.controllers;
 
 import com.kodluyoruz.flightticket.models.dto.AirportDto;
-import com.kodluyoruz.flightticket.models.requests.AirportRequest;
+import com.kodluyoruz.flightticket.models.requests.airport.AirportRequest;
 import com.kodluyoruz.flightticket.services.AirportService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

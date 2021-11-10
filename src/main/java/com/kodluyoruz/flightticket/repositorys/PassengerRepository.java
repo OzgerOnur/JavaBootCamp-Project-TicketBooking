@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PassengerRepository extends JpaRepository<Passenger,Integer> {
@@ -18,6 +19,9 @@ public interface PassengerRepository extends JpaRepository<Passenger,Integer> {
     @Query("select p from Passenger p "
             +" where p.name like %?1% AND p.mail like %?2% ")
     List<Passenger> findPassengerWithNameOrMail(String name,String mail);
+
+    @Query("select p from Passenger p where p.id = ?1")
+    Optional<Passenger> isPassengerExist(Integer passengerId);
 
 
 }
