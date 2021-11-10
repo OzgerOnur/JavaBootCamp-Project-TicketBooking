@@ -55,7 +55,7 @@ public class SeatAndTicketService {
         if ((ticket.getSeat().getSeatNumber() > flight.getPlane().getCapacity())
                 || (ticket.getSeat().getSeatNumber() <= 0) ){
             throw new SeatNumberOutSide(flight,ticket);
-        } // todo flight capın altında bir numara sçemeli
+        }
 
 
     }
@@ -118,7 +118,7 @@ public class SeatAndTicketService {
         // varsa bu uçakta istediği seatnumber alınmıs mı
         if (seatRepository.existsByFlightIdAndSeatNumber(ticket.getSeat().getFlightId()
                 ,updateTicketRequest.getSeat().getSeatNumber()) ){
-            throw new SeatAlreadyBooked(ticket.getSeat());
+            throw new SeatAlreadyBooked(updateTicketRequest.getSeat());
         }
         // uçak kapasitesi aşılıyor mu
         if(ticket.getSeat().getFlight().getPlane().getCapacity() < updateTicketRequest.getSeat().getSeatNumber()){

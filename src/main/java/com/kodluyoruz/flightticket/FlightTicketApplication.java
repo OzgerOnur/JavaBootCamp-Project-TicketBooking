@@ -17,7 +17,6 @@ public class FlightTicketApplication {
 
     //todo booking
     // todo Unit tests should be written.
-    //todo Attention should be paid to data consistency
 
     // todo pageable and  transcation, use them
 
