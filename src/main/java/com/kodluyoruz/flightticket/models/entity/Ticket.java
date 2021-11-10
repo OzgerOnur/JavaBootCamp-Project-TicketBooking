@@ -31,6 +31,8 @@ public class Ticket extends BaseEntity{
     @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL,orphanRemoval = true,mappedBy = "ticket")
     private Seat seat;
 
+    private String paymentInformation;
+
 
 
 }

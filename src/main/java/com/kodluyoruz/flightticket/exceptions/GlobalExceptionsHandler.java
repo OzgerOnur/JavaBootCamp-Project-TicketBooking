@@ -1,10 +1,8 @@
 package com.kodluyoruz.flightticket.exceptions;
 
-import com.kodluyoruz.flightticket.exceptions.exceptionsType.FlightAndGateRegDateException;
-import com.kodluyoruz.flightticket.exceptions.exceptionsType.GateRegEarlierBookedException;
-import com.kodluyoruz.flightticket.exceptions.exceptionsType.NotFoundEntityException;
-import com.kodluyoruz.flightticket.exceptions.exceptionsType.PlaneCapacityException;
+import com.kodluyoruz.flightticket.exceptions.exceptionsType.*;
 import com.kodluyoruz.flightticket.models.dto.GateRegDto;
+import com.kodluyoruz.flightticket.services.SeatAlreadyBooked;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,13 +31,28 @@ public class GlobalExceptionsHandler {
     }
 
     @ExceptionHandler(FlightAndGateRegDateException.class)
-    public ResponseEntity<FlightAndGateRegDateException.ExceptionDates> FlightAndGateRegDateNotMatched(FlightAndGateRegDateException flightAndGateRegDateException){
+    public ResponseEntity<FlightAndGateRegDateException.ExceptionDates> flightAndGateRegDateNotMatched(FlightAndGateRegDateException flightAndGateRegDateException){
        return ResponseEntity.status(HttpStatus.CONFLICT).body(flightAndGateRegDateException.getExceptionDates());
     }
 
     @ExceptionHandler(PlaneCapacityException.class)
-    public ResponseEntity<PlaneCapacityException.ExceptionFlightCapacity> PlaneCapacityNotValid(PlaneCapacityException planeCapacityException){
+    public ResponseEntity<PlaneCapacityException.ExceptionFlightCapacity> planeCapacityNotValid(PlaneCapacityException planeCapacityException){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(planeCapacityException.getExceptionPlanesCapacity());
+    }
+
+    @ExceptionHandler(SeatAlreadyBooked.class)
+    public ResponseEntity<String> seatAlreadyBooked(SeatAlreadyBooked seatAlreadyBooked){
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(seatAlreadyBooked.getMessage());
+    }
+
+    @ExceptionHandler(FlightFullExeception.class)
+    public ResponseEntity<String> flightFullexception(FlightFullExeception flightFullExeception){
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(flightFullExeception.getMessage());
+    }
+
+    @ExceptionHandler(SeatNumberOutSide.class)
+    public ResponseEntity<String> seatNumberException(SeatNumberOutSide seatNumberOutSide){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(seatNumberOutSide.toString());
     }
 
 

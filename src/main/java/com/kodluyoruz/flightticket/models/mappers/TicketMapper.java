@@ -2,6 +2,7 @@ package com.kodluyoruz.flightticket.models.mappers;
 
 import com.kodluyoruz.flightticket.models.dto.TicketDto;
 import com.kodluyoruz.flightticket.models.entity.Ticket;
+import com.kodluyoruz.flightticket.models.requests.ticket.TicketCreateRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -12,4 +13,5 @@ public interface TicketMapper {
 
      TicketDto ticketToTicketDto(Ticket ticket);
 
+    Ticket creatTicketRequestToTicket(TicketCreateRequest ticketCreateRequest);
 }

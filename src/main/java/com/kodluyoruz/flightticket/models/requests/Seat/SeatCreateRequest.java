@@ -1,13 +1,13 @@
 package com.kodluyoruz.flightticket.models.requests.Seat;
 
-import com.kodluyoruz.flightticket.models.entity.Flight;
-import com.kodluyoruz.flightticket.models.entity.Ticket;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 
 @Data
 @AllArgsConstructor
@@ -15,7 +15,9 @@ import javax.persistence.*;
 @Builder
 public class SeatCreateRequest {
 
+    @NotNull
     private Integer seatNumber;
+    @NotNull
     private Integer flightId;
     // it will be in update
     //private Integer ticketId;

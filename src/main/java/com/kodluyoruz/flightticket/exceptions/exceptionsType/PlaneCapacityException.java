@@ -1,15 +1,18 @@
 package com.kodluyoruz.flightticket.exceptions.exceptionsType;
 
 import com.kodluyoruz.flightticket.models.entity.Flight;
+import com.kodluyoruz.flightticket.models.entity.Ticket;
 import com.kodluyoruz.flightticket.models.entity.aboutPlane.Plane;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.function.Supplier;
 
 @Data
 public class PlaneCapacityException extends RuntimeException {
+
 
     @Data
     public class ExceptionFlightCapacity{
@@ -27,6 +30,9 @@ public class PlaneCapacityException extends RuntimeException {
         exceptionPlanesCapacity.currentSoldSeat = soldSeatNumber;
         exceptionPlanesCapacity.wantedCapacity = newPlane.getCapacity();
 
-
     }
+
+
+
+
 }

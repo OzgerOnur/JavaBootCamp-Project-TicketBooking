@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("passangers")
+@RequestMapping("passengers")
 @RequiredArgsConstructor
 public class PassangerController {
     private final PassengerService passengerService;
