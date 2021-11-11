@@ -4,8 +4,8 @@ import com.kodluyoruz.flightticket.exceptions.exceptionsType.GateRegEarlierBooke
 import com.kodluyoruz.flightticket.exceptions.exceptionsType.NotFoundEntityException;
 import com.kodluyoruz.flightticket.models.entity.GateReg;
 import com.kodluyoruz.flightticket.models.entity.aboutAirport.Gate;
-import com.kodluyoruz.flightticket.repositorys.GateRegRepository;
-import com.kodluyoruz.flightticket.repositorys.GateRepository;
+import com.kodluyoruz.flightticket.repositories.GateRegRepository;
+import com.kodluyoruz.flightticket.repositories.GateRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

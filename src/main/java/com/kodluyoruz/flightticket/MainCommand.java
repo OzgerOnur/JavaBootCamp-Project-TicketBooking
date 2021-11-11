@@ -1,16 +1,13 @@
 package com.kodluyoruz.flightticket;
 
-import com.kodluyoruz.flightticket.models.dto.PassangerDto;
 import com.kodluyoruz.flightticket.models.entity.*;
 import com.kodluyoruz.flightticket.models.entity.aboutAirport.Airport;
 import com.kodluyoruz.flightticket.models.entity.aboutAirport.Gate;
 import com.kodluyoruz.flightticket.models.entity.aboutPlane.Plane;
-import com.kodluyoruz.flightticket.repositorys.*;
+import com.kodluyoruz.flightticket.repositories.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 
-import java.sql.Time;
 import java.util.*;
 
 //@Component

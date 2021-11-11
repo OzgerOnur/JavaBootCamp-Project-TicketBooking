@@ -1,20 +1,12 @@
 package com.kodluyoruz.flightticket.services;
 
-import com.kodluyoruz.flightticket.exceptions.exceptionsType.NotFoundEntityException;
-import com.kodluyoruz.flightticket.models.dto.GateRegDto;
-import com.kodluyoruz.flightticket.models.entity.Flight;
-import com.kodluyoruz.flightticket.models.entity.GateReg;
-import com.kodluyoruz.flightticket.models.entity.aboutAirport.Gate;
 import com.kodluyoruz.flightticket.models.requests.flight.FlightCreateRequest;
-import com.kodluyoruz.flightticket.repositorys.GateRegRepository;
-import com.kodluyoruz.flightticket.repositorys.GateRepository;
+import com.kodluyoruz.flightticket.repositories.GateRegRepository;
+import com.kodluyoruz.flightticket.repositories.GateRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import static com.kodluyoruz.flightticket.models.mappers.FlightMapper.MAPPER_FLIGHT;
 
 @Service
 @RequiredArgsConstructor

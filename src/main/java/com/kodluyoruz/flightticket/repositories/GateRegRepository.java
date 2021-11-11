@@ -1,14 +1,12 @@
-package com.kodluyoruz.flightticket.repositorys;
+package com.kodluyoruz.flightticket.repositories;
 
 import com.kodluyoruz.flightticket.models.entity.GateReg;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface GateRegRepository extends JpaRepository<GateReg,Integer> {

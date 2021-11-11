@@ -4,7 +4,7 @@ import com.kodluyoruz.flightticket.exceptions.exceptionsType.NotFoundEntityExcep
 import com.kodluyoruz.flightticket.models.dto.AirportDto;
 import com.kodluyoruz.flightticket.models.entity.aboutAirport.Airport;
 import com.kodluyoruz.flightticket.models.requests.airport.AirportRequest;
-import com.kodluyoruz.flightticket.repositorys.AirportRepository;
+import com.kodluyoruz.flightticket.repositories.AirportRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

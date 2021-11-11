@@ -1,7 +1,6 @@
 package com.kodluyoruz.flightticket.service;
 
-import com.kodluyoruz.flightticket.models.entity.Flight;
-import com.kodluyoruz.flightticket.repositorys.FlightRepository;
+import com.kodluyoruz.flightticket.repositories.FlightRepository;
 import com.kodluyoruz.flightticket.services.AirportService;
 import com.kodluyoruz.flightticket.services.FlightService;
 import com.kodluyoruz.flightticket.services.GateService;
@@ -11,8 +10,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.Date;
 
 @ExtendWith(MockitoExtension.class)
 public class FlightServiceTest {

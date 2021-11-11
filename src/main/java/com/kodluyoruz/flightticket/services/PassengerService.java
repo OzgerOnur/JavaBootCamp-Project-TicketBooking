@@ -3,11 +3,10 @@ package com.kodluyoruz.flightticket.services;
 import com.kodluyoruz.flightticket.exceptions.exceptionsType.NotFoundEntityException;
 import com.kodluyoruz.flightticket.models.dto.PassangerDto;
 import com.kodluyoruz.flightticket.models.entity.Passenger;
-import com.kodluyoruz.flightticket.models.mappers.PassengerMapper;
 import com.kodluyoruz.flightticket.models.requests.passanger.CreatePassangerRequest;
 import com.kodluyoruz.flightticket.models.requests.passanger.PassengerUpdateRequest;
 import com.kodluyoruz.flightticket.models.requests.passanger.SearchPassengerRequest;
-import com.kodluyoruz.flightticket.repositorys.PassengerRepository;
+import com.kodluyoruz.flightticket.repositories.PassengerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

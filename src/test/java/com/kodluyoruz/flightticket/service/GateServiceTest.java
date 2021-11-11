@@ -1,9 +1,8 @@
 package com.kodluyoruz.flightticket.service;
 
 import com.kodluyoruz.flightticket.models.entity.GateReg;
-import com.kodluyoruz.flightticket.models.entity.aboutAirport.Gate;
-import com.kodluyoruz.flightticket.repositorys.GateRegRepository;
-import com.kodluyoruz.flightticket.repositorys.GateRepository;
+import com.kodluyoruz.flightticket.repositories.GateRegRepository;
+import com.kodluyoruz.flightticket.repositories.GateRepository;
 import com.kodluyoruz.flightticket.services.GateService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,7 +12,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class GateServiceTest {

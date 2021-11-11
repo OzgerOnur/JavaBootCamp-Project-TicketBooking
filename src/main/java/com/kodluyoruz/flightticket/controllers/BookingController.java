@@ -33,4 +33,7 @@ public class BookingController {
         return seatAndTicketService.updateTicket(id,updateTicketRequest);
     }
 
+    @DeleteMapping("{id}")
+    //todo there is a few issue if there are count fonk from sql side, soft delete method could be runing false
+
 }

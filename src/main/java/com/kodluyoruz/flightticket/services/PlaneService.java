@@ -6,9 +6,9 @@ import com.kodluyoruz.flightticket.models.dto.PlaneDto;
 import com.kodluyoruz.flightticket.models.entity.Flight;
 import com.kodluyoruz.flightticket.models.entity.aboutPlane.Plane;
 import com.kodluyoruz.flightticket.models.requests.plane.PlaneUpdateRequest;
-import com.kodluyoruz.flightticket.repositorys.PlaneRepository;
+import com.kodluyoruz.flightticket.repositories.PlaneRepository;
 import com.kodluyoruz.flightticket.models.requests.plane.PlaneCreateRequest;
-import com.kodluyoruz.flightticket.repositorys.SeatRepository;
+import com.kodluyoruz.flightticket.repositories.SeatRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
