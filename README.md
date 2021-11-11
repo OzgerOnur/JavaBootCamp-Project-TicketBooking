@@ -120,5 +120,5 @@ If the reservation is completed, that seat on the plane for that flight is held 
 
 
 ## Note
-- This project was made according to this [Required](RequitedForTheProject.md)
+- This project was made according to this [Required](RequiredForTheProject.md)
 * This project is a simple version of [obilet.com](https://www.obilet.com/ucak-bileti).  
