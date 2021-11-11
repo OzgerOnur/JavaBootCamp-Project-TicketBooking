@@ -23,6 +23,8 @@ You can do the below.
 
 ### Plane Controller
 
+You can do the below.
+
 - url : /planes
 
 	- get request : it brings all of planes
@@ -40,6 +42,8 @@ You can do the below.
 
 ### Passenger Controller
 
+You can do the below.
+
 - url : /passengers
 
 	- get request : it brings all of passengers
@@ -56,6 +60,8 @@ You can do the below.
 
 
 ### Flight Expedition Controller
+
+You can do the below.
 
 - url : /flightExpeditions
 
@@ -78,6 +84,8 @@ Flights from an airport to another airport are listed.
 
 
 ### Booking Controller
+
+You can do the below.
 
 - url : /tickets
 
