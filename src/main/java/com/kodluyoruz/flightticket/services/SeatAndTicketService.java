@@ -134,4 +134,16 @@ public class SeatAndTicketService {
         }
         return ticketRepository.save(ticket);
     }
+
+    public void deleteTicket(Integer id) {
+        Ticket ticket = ticketRepository.findById(id).orElseThrow(
+                () -> new NotFoundEntityException(id + " No Ticket Not Found")
+        );
+        payBack(ticket);
+        ticketRepository.deleteById(id);
+    }
+
+    private void payBack(Ticket ticket) {
+
+    }
 }

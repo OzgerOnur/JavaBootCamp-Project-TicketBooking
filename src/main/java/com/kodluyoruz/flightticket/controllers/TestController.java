@@ -17,10 +17,10 @@ import static com.kodluyoruz.flightticket.models.mappers.FlightMapper.MAPPER_FLI
 public class TestController {
     private final TestService testService;
 
-    @PostMapping
-    public ResponseEntity<String> test(@RequestBody FlightCreateRequest flightCreateRequest){
+    @GetMapping("{flightId}/{seatNum}")
+    public ResponseEntity<String> test(@PathVariable(name = "flightId") Integer flightId,@PathVariable(name = "seatNum") Integer seatNumber){
 
-        return testService.test(flightCreateRequest);
+        return testService.test(flightId,seatNumber);
 
     }
 

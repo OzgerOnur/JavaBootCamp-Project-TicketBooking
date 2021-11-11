@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class SeatUpdateRequest {
 
-    @NotNull
+    @NotNull(message = "seat number must be exist")
     private Integer seatNumber;
 
 }

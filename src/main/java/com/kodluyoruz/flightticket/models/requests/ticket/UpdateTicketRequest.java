@@ -20,7 +20,7 @@ public class UpdateTicketRequest {
     @NotNull(message = "passenger id must be")
     private Integer passengerId;
 
-    @NotNull
+    @NotNull(message = "seat must be ")
     private SeatUpdateRequest seat;
 
 }

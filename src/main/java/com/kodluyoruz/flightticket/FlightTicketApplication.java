@@ -15,7 +15,7 @@ public class FlightTicketApplication {
     }
 
 
-    //todo booking
+
     // todo Unit tests should be written.
 
     // todo pageable and  transcation, use them
