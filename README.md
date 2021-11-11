@@ -65,7 +65,7 @@ You can do the below.
 
 - url : /flightExpeditions
 
-	- get request : it brings all of flights
+	- get request : able to search with url query( between two time while and from to where)
 
 	- post request : it is saving flight of you gave 
 
