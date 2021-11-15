@@ -12,7 +12,6 @@ import java.util.Optional;
 @Repository
 public interface FlightRepository extends JpaRepository<Flight,Integer> {
 
-
     List<Flight> findByToAirportIdAndFromAirportIdAndFlightDateBetween(
             Integer toAirportId,
             Integer fromAirPortId,

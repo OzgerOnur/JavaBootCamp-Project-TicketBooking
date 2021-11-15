@@ -4,6 +4,7 @@ import com.kodluyoruz.flightticket.models.dto.GateRegDto;
 import com.kodluyoruz.flightticket.models.entity.Flight;
 import com.kodluyoruz.flightticket.models.entity.GateReg;
 import com.kodluyoruz.flightticket.models.requests.flight.FlightCreateRequest;
+import com.kodluyoruz.flightticket.models.requests.ticket.TicketCreateRequest;
 import com.kodluyoruz.flightticket.services.TestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +18,10 @@ import static com.kodluyoruz.flightticket.models.mappers.FlightMapper.MAPPER_FLI
 public class TestController {
     private final TestService testService;
 
-    @GetMapping("{flightId}/{seatNum}")
-    public ResponseEntity<String> test(@PathVariable(name = "flightId") Integer flightId,@PathVariable(name = "seatNum") Integer seatNumber){
+    @GetMapping()
+    public ResponseEntity<String> test(TicketCreateRequest ticketCreateRequest){
 
-        return testService.test(flightId,seatNumber);
+        return testService.test(ticketCreateRequest);
 
     }
 

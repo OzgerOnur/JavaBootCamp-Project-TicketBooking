@@ -20,5 +20,6 @@ public class FlightTicketApplication {
 
     // todo pageable and  transcation, use them
 
+    // todo exceptions should be regulated
 
 }
