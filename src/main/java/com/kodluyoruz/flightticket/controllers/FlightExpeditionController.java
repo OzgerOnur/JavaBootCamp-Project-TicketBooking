@@ -1,6 +1,8 @@
 package com.kodluyoruz.flightticket.controllers;
 
 import com.kodluyoruz.flightticket.models.dto.FlightDto;
+import com.kodluyoruz.flightticket.models.dto.PageAbleResponse;
+import com.kodluyoruz.flightticket.models.requests.PageableRequest;
 import com.kodluyoruz.flightticket.models.requests.flight.FlightCreateRequest;
 import com.kodluyoruz.flightticket.models.requests.flight.FlightSearchRequestWithName;
 import com.kodluyoruz.flightticket.models.requests.flight.FlightUpdateRequest;
@@ -9,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -29,8 +32,9 @@ public class FlightExpeditionController {
     }
 
     @GetMapping()
-    public List<FlightDto> getFlightWithName(FlightSearchRequestWithName flightSearchRequestWithName){
-        return flightService.getFlightsWithName(flightSearchRequestWithName);
+    public PageAbleResponse<FlightDto> getFlightWithName(@Valid FlightSearchRequestWithName flightSearchRequestWithName,
+                                                         @Valid PageableRequest pageableRequest){
+        return flightService.getFlightsWithName(flightSearchRequestWithName,pageableRequest);
     }
 
     @PatchMapping("{id}")

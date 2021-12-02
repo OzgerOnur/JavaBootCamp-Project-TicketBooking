@@ -2,10 +2,14 @@ package com.kodluyoruz.flightticket.services;
 
 import com.kodluyoruz.flightticket.exceptions.exceptionsType.NotFoundEntityException;
 import com.kodluyoruz.flightticket.models.dto.AirportDto;
+import com.kodluyoruz.flightticket.models.dto.PageAbleResponse;
 import com.kodluyoruz.flightticket.models.entity.aboutAirport.Airport;
+import com.kodluyoruz.flightticket.models.requests.PageableRequest;
 import com.kodluyoruz.flightticket.models.requests.airport.AirportRequest;
 import com.kodluyoruz.flightticket.repositories.AirportRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,9 +45,10 @@ public class AirportService {
         return MAPPER_AIRPORT.airportToAirportDto(updatedAirport);
     }
 
-    public List<AirportDto> getAirports() {
-        List<Airport> airports = airportRepository.findAll();
-        return MAPPER_AIRPORT.airportsToAirportDtos(airports);
+    public PageAbleResponse<AirportDto> getAirports(PageableRequest pageableRequest) {
+        Page<Airport> airports = airportRepository.findAll(
+                PageRequest.of(pageableRequest.getCurrentPage(),pageableRequest.getSizePage()));
+        return MAPPER_AIRPORT.airportPageToAirportPageDtos(airports);
     }
 
 

@@ -1,13 +1,20 @@
 package com.kodluyoruz.flightticket.services;
 
+import com.kodluyoruz.flightticket.models.dto.PageAbleResponse;
+import com.kodluyoruz.flightticket.models.dto.PlaneDto;
 import com.kodluyoruz.flightticket.models.dto.TicketDto;
 import com.kodluyoruz.flightticket.models.entity.Passenger;
 import com.kodluyoruz.flightticket.models.entity.Seat;
 import com.kodluyoruz.flightticket.models.entity.Ticket;
+import com.kodluyoruz.flightticket.models.entity.aboutPlane.Plane;
+
+import com.kodluyoruz.flightticket.models.requests.PageableRequest;
 import com.kodluyoruz.flightticket.models.requests.flight.FlightCreateRequest;
 import com.kodluyoruz.flightticket.models.requests.ticket.TicketCreateRequest;
 import com.kodluyoruz.flightticket.repositories.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,6 +23,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.constraints.NotEmpty;
 
+import java.util.List;
+
+import static com.kodluyoruz.flightticket.models.mappers.PageAbleMapper.MAPPER_PAGE_ABLE;
+import static com.kodluyoruz.flightticket.models.mappers.PlaneMapper.MAPPER_PLANE;
 import static com.kodluyoruz.flightticket.models.mappers.TicketMapper.MAPPER_TICKET;
 
 @Service
@@ -26,10 +37,16 @@ public class TestService {
     private final SeatRepository seatRepository;
     private final PassengerRepository passengerRepository;
     private final TicketRepository ticketRepository;
+    private final PlaneRepository planeRepository;
 
 
+    public PageAbleResponse<PlaneDto> getPlanes(PageableRequest pageableRequest) {
+        Page<Plane> planes = planeRepository.findAll(
+                PageRequest.of(pageableRequest.getCurrentPage(), pageableRequest.getSizePage()));
+        return  MAPPER_PLANE.planePageToPlanePageDtos(planes) ;
+    }
 
-    public TicketDto createTicket(TicketCreateRequest ticketCreateRequest) {
+        public TicketDto createTicket(TicketCreateRequest ticketCreateRequest) {
         Ticket ticket = MAPPER_TICKET.creatTicketRequestToTicket(ticketCreateRequest);
 
         Ticket createdTicket = payment(ticket);

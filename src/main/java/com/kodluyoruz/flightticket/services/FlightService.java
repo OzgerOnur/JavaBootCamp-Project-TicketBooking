@@ -3,7 +3,9 @@ package com.kodluyoruz.flightticket.services;
 import com.kodluyoruz.flightticket.exceptions.exceptionsType.FlightAndGateRegDateException;
 import com.kodluyoruz.flightticket.exceptions.exceptionsType.NotFoundEntityException;
 import com.kodluyoruz.flightticket.models.dto.FlightDto;
+import com.kodluyoruz.flightticket.models.dto.PageAbleResponse;
 import com.kodluyoruz.flightticket.models.entity.Flight;
+import com.kodluyoruz.flightticket.models.requests.PageableRequest;
 import com.kodluyoruz.flightticket.models.requests.flight.FlightCreateRequest;
 import com.kodluyoruz.flightticket.models.requests.flight.FlightSearchRequestWithId;
 import com.kodluyoruz.flightticket.models.requests.flight.FlightSearchRequestWithName;
@@ -11,6 +13,11 @@ import com.kodluyoruz.flightticket.models.requests.flight.FlightUpdateRequest;
 import com.kodluyoruz.flightticket.repositories.FlightRepository;
 import com.kodluyoruz.flightticket.repositories.PlaneRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,13 +66,21 @@ public class FlightService {
         planeRepository.findById(planeId).orElseThrow(() -> new NotFoundEntityException("Plane Not Found") );
     }
 
-    public List<FlightDto> getFlightsWithName(FlightSearchRequestWithName flightSearchRequestWithName) {
+    public PageAbleResponse<FlightDto> getFlightsWithName(FlightSearchRequestWithName flightSearchRequestWithName,
+                                                          PageableRequest pageableRequest) {
        List<Flight> flights = searchFlightInRepoWithName(flightSearchRequestWithName);
-        flights = flights.stream()
+       flights = flights.stream()
                 .filter(flight -> flight.getSeats().size() < flight.getPlane().getCapacity())
                 .collect(Collectors.toList());
+        Pageable request = PageRequest.of(pageableRequest.getCurrentPage(),pageableRequest.getSizePage());
+        int start = Math.min((int)request.getOffset(), flights.size());
+        int end = Math.min((start + request.getPageSize()), flights.size());
+        Page<Flight> flightPage = new PageImpl<Flight>(
+                flights.subList(start,end),
+                request,
+                flights.size());
 
-        return MAPPER_FLIGHT.flightsToFlightDtos(flights);
+        return MAPPER_FLIGHT.flightPageToFlightPageDtos(flightPage);
     }
 
     public List<FlightDto> getFlightsWithId(FlightSearchRequestWithId flightSearchRequestWithId) {
@@ -80,6 +95,7 @@ public class FlightService {
                 flightSearchRequestWithName.getToDate(),
                 flightSearchRequestWithName.getFromDate());
     }
+
 
     private List<Flight> searchFlightInRepoWithId(FlightSearchRequestWithId flightSearchRequestWithId) {
         return flightRepository.findByToAirportIdAndFromAirportIdAndFlightDateBetween(

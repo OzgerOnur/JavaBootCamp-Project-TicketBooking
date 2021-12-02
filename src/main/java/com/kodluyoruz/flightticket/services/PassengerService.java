@@ -1,13 +1,17 @@
 package com.kodluyoruz.flightticket.services;
 
 import com.kodluyoruz.flightticket.exceptions.exceptionsType.NotFoundEntityException;
+import com.kodluyoruz.flightticket.models.dto.PageAbleResponse;
 import com.kodluyoruz.flightticket.models.dto.PassangerDto;
 import com.kodluyoruz.flightticket.models.entity.Passenger;
+import com.kodluyoruz.flightticket.models.requests.PageableRequest;
 import com.kodluyoruz.flightticket.models.requests.passanger.CreatePassangerRequest;
 import com.kodluyoruz.flightticket.models.requests.passanger.PassengerUpdateRequest;
 import com.kodluyoruz.flightticket.models.requests.passanger.SearchPassengerRequest;
 import com.kodluyoruz.flightticket.repositories.PassengerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +25,7 @@ public class PassengerService {
 
 
     public PassangerDto createPassenger(CreatePassangerRequest createPassangerRequest) {
-        Passenger passenger = MAPPER_PASSENGER.createPassangerRequestToPassenger(createPassangerRequest);
+        Passenger passenger = MAPPER_PASSENGER.createPassengerRequestToPassenger(createPassangerRequest);
         Passenger createdPassenger = passengerRepository.save(passenger);
         return MAPPER_PASSENGER.passengerToPassengerDto(createdPassenger);
     }
@@ -37,13 +41,16 @@ public class PassengerService {
         );
         return passenger;
     }
+    //@Valid PageableRequest pageableRequest
+    public PageAbleResponse<PassangerDto> searchPassengers(SearchPassengerRequest searchPassengerRequest,
+                                                           PageableRequest pageableRequest) {
 
-    public List<PassangerDto> searchPassengers(SearchPassengerRequest searchPassengerRequest) {
-        List<Passenger> passengers = passengerRepository.findPassengerWithNameOrMail(
+        Page<Passenger> passengers = passengerRepository.findPassengerWithNameOrMail(
                 searchPassengerRequest.getName(),
-                searchPassengerRequest.getMail()
+                searchPassengerRequest.getMail(),
+                PageRequest.of(pageableRequest.getCurrentPage(), pageableRequest.getSizePage())
         );
-        return MAPPER_PASSENGER.passengersToPassengerDtos(passengers);
+        return MAPPER_PASSENGER.passengerPageToPassengerPageDtos(passengers);
 
     }
 

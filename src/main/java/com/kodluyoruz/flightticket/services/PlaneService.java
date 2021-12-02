@@ -2,16 +2,22 @@ package com.kodluyoruz.flightticket.services;
 
 import com.kodluyoruz.flightticket.exceptions.exceptionsType.NotFoundEntityException;
 import com.kodluyoruz.flightticket.exceptions.exceptionsType.PlaneCapacityException;
+import com.kodluyoruz.flightticket.models.dto.PageAbleResponse;
 import com.kodluyoruz.flightticket.models.dto.PlaneDto;
 import com.kodluyoruz.flightticket.models.entity.Flight;
 import com.kodluyoruz.flightticket.models.entity.aboutPlane.Plane;
+import com.kodluyoruz.flightticket.models.requests.PageableRequest;
 import com.kodluyoruz.flightticket.models.requests.plane.PlaneUpdateRequest;
 import com.kodluyoruz.flightticket.repositories.PlaneRepository;
 import com.kodluyoruz.flightticket.models.requests.plane.PlaneCreateRequest;
 import com.kodluyoruz.flightticket.repositories.SeatRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 import static com.kodluyoruz.flightticket.models.mappers.PlaneMapper.MAPPER_PLANE;
@@ -30,9 +36,11 @@ public class PlaneService {
         return MAPPER_PLANE.planeToPlaneDto(createdPlane);
     }
 
-    public List<PlaneDto> getPlanes() {
-        List<Plane> planes = planeRepository.findAll();
-        return MAPPER_PLANE.planeToPlaneDtos(planes);
+    public PageAbleResponse<PlaneDto> getPlanes(PageableRequest pageableRequest) {
+        Page<Plane> planes = planeRepository.findAll(
+                PageRequest.of(pageableRequest.getCurrentPage(), pageableRequest.getSizePage()));
+
+        return MAPPER_PLANE.planePageToPlanePageDtos(planes);
     }
 
     public PlaneDto getPlane(Integer id) {

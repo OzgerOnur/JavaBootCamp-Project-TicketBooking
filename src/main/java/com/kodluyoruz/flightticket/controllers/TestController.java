@@ -1,16 +1,13 @@
 package com.kodluyoruz.flightticket.controllers;
 
-import com.kodluyoruz.flightticket.models.dto.GateRegDto;
-import com.kodluyoruz.flightticket.models.entity.Flight;
-import com.kodluyoruz.flightticket.models.entity.GateReg;
-import com.kodluyoruz.flightticket.models.requests.flight.FlightCreateRequest;
-import com.kodluyoruz.flightticket.models.requests.ticket.TicketCreateRequest;
+import com.kodluyoruz.flightticket.models.dto.PageAbleResponse;
+import com.kodluyoruz.flightticket.models.dto.PlaneDto;
+import com.kodluyoruz.flightticket.models.requests.PageableRequest;
 import com.kodluyoruz.flightticket.services.TestService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static com.kodluyoruz.flightticket.models.mappers.FlightMapper.MAPPER_FLIGHT;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("test")
@@ -19,9 +16,9 @@ public class TestController {
     private final TestService testService;
 
     @GetMapping()
-    public ResponseEntity<String> test(TicketCreateRequest ticketCreateRequest){
+    public PageAbleResponse<PlaneDto> test(PageableRequest pageableRequest){
 
-        return testService.test(ticketCreateRequest);
+        return testService.getPlanes(pageableRequest);
 
     }
 

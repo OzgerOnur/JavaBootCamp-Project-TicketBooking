@@ -1,7 +1,9 @@
 package com.kodluyoruz.flightticket.controllers;
 
+import com.kodluyoruz.flightticket.models.dto.PageAbleResponse;
 import com.kodluyoruz.flightticket.models.dto.PassangerDto;
 import com.kodluyoruz.flightticket.models.entity.Passenger;
+import com.kodluyoruz.flightticket.models.requests.PageableRequest;
 import com.kodluyoruz.flightticket.models.requests.passanger.CreatePassangerRequest;
 import com.kodluyoruz.flightticket.models.requests.passanger.PassengerUpdateRequest;
 import com.kodluyoruz.flightticket.models.requests.passanger.SearchPassengerRequest;
@@ -31,8 +33,8 @@ public class PassangerController {
     }
 
     @GetMapping()
-    public List<PassangerDto> searchPassenger(@Valid SearchPassengerRequest searchPassengerRequest){
-        return passengerService.searchPassengers(searchPassengerRequest);
+    public PageAbleResponse<PassangerDto> searchPassenger(@Valid SearchPassengerRequest searchPassengerRequest, @Valid PageableRequest pageableRequest){
+        return passengerService.searchPassengers(searchPassengerRequest,pageableRequest);
     }
 
     @PatchMapping("{id}")

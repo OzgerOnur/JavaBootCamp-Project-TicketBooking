@@ -1,12 +1,15 @@
 package com.kodluyoruz.flightticket.controllers;
 
 import com.kodluyoruz.flightticket.models.dto.AirportDto;
+import com.kodluyoruz.flightticket.models.dto.PageAbleResponse;
+import com.kodluyoruz.flightticket.models.requests.PageableRequest;
 import com.kodluyoruz.flightticket.models.requests.airport.AirportRequest;
 import com.kodluyoruz.flightticket.services.AirportService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -27,8 +30,8 @@ public class AirportController {
     }
 
     @GetMapping()
-    public List<AirportDto> getAirports() {
-        return airportService.getAirports();
+    public PageAbleResponse<AirportDto> getAirports(@Valid PageableRequest pageableRequest) {
+        return airportService.getAirports(pageableRequest);
     }
 
     @PatchMapping("{id}")

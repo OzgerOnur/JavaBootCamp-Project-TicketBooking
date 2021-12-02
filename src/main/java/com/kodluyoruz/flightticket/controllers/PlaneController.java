@@ -1,13 +1,17 @@
 package com.kodluyoruz.flightticket.controllers;
 
+import com.kodluyoruz.flightticket.models.dto.PageAbleResponse;
+import com.kodluyoruz.flightticket.models.requests.PageableRequest;
 import com.kodluyoruz.flightticket.models.requests.plane.PlaneCreateRequest;
 import com.kodluyoruz.flightticket.models.dto.PlaneDto;
 import com.kodluyoruz.flightticket.models.requests.plane.PlaneUpdateRequest;
 import com.kodluyoruz.flightticket.services.PlaneService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -23,8 +27,9 @@ public class PlaneController {
     }
 
     @GetMapping()
-    public List<PlaneDto> getPlanes(){
-        return planeService.getPlanes();
+    public PageAbleResponse<PlaneDto> getPlanes(@Valid PageableRequest pageableRequest){
+        return planeService.getPlanes(pageableRequest);
+
     }
 
     @GetMapping("{id}")
